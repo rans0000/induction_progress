@@ -43,7 +43,7 @@ class App{
     private initializeDatabaseConnection():void {
         const {MONGO_USER, MONGO_PASSWORD,MONGO_PATH}= process.env;
         
-        mongoose.connect(`mongodb+sv://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`);
+        mongoose.connect(`mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`);
     }
 
     public listen():void{
