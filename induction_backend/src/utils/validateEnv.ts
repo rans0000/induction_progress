@@ -8,6 +8,7 @@ function validateEnv():void {
         MONGO_PASSWORD: str(),
         MONGO_PATH: str(),
         MONGO_USER: str(),
+        MONGO_DB_NAME: str(),
         PORT: port({default:3000}),
     })
 }

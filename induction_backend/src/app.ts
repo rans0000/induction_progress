@@ -1,11 +1,11 @@
-import express, { Application } from "express";
-import mongoose from 'mongoose';
-import compression from 'compression';
-import cors from 'cors';
-import morgan from 'morgan';
-import helmet from 'helmet';
 import ErrorMiddleWare from '@/middleware/error.middleware';
 import Controller from '@/utils/interfaces/controller.interface';
+import compression from 'compression';
+import cors from 'cors';
+import express, { Application } from "express";
+import helmet from 'helmet';
+import mongoose from 'mongoose';
+import morgan from 'morgan';
 
 class App{
     public express: Application;
@@ -41,9 +41,9 @@ class App{
     }
 
     private initializeDatabaseConnection():void {
-        const {MONGO_USER, MONGO_PASSWORD,MONGO_PATH}= process.env;
-        
-        mongoose.connect(`mongodb+srv://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`);
+        const {MONGO_USER, MONGO_PASSWORD,MONGO_PATH, MONGO_DB_NAME}= process.env;
+        const uri = `mongodb+srv://${MONGO_USER}:${encodeURIComponent(MONGO_PASSWORD!)}${MONGO_PATH}`;
+        mongoose.connect(uri, {dbName: MONGO_DB_NAME});
     }
 
     public listen():void{

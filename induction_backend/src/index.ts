@@ -1,10 +1,16 @@
+require('module-alias/register');
+import BoardingTaskController from '@/resources/boardingTask/boardingTask.controller';
+import validateEnv from '@/utils/validateEnv';
 import 'dotenv/config';
 import 'module-alias/register';
-import validateEnv from '@/utils/validateEnv';
 import App from './app';
 
 validateEnv();
 
-const app = new App([], Number(process.env.PORT));
+const app = new App(
+    [
+        new BoardingTaskController()
+    ],
+    Number(process.env.PORT));
 
 app.listen();
