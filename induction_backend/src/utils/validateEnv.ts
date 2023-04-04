@@ -10,6 +10,7 @@ function validateEnv():void {
         MONGO_USER: str(),
         MONGO_DB_NAME: str(),
         PORT: port({default:3000}),
+        JWT_SECRET: str(),
     })
 }
 
