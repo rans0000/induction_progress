@@ -1,44 +1,44 @@
-import User from "@/resources/user/user.interface";
+import User from '@/resources/user/user.interface';
 import bcrypt from 'bcrypt';
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 
 const UserSchema = new Schema(
     {
-        name:{
+        name: {
             type: String,
             required: true,
         },
-        email:{
+        email: {
             type: String,
             required: true,
             unique: true,
-            trim: true
+            trim: true,
         },
-        password:{
+        password: {
             type: String,
         },
-        role:{
+        role: {
             type: String,
-            required: true
-        }
+            required: true,
+        },
     },
-    {timestamps: true}
+    { timestamps: true }
 );
 
-UserSchema.pre<User>('save', async function (next){
-    if(!this.isModified('password')){
+UserSchema.pre<User>('save', async function (next) {
+    if (!this.isModified('password')) {
         return next();
     }
 
-    const hash = await bcrypt.hash(this.password,10);
+    const hash = await bcrypt.hash(this.password, 10);
     this.password = hash;
     next();
 });
 
 UserSchema.methods.isValidPassword = async function (
-    password:string
-    ): Promise<Error | boolean> {
-        return await bcrypt.compare(password, this.password);
+    password: string
+): Promise<Error | boolean> {
+    return await bcrypt.compare(password, this.password);
 };
 
 export default model<User>('User', UserSchema);

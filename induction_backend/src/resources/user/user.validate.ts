@@ -1,4 +1,4 @@
-import Joi from "joi";
+import Joi from 'joi';
 
 const register = Joi.object({
     name: Joi.string().required().max(40),
@@ -11,4 +11,4 @@ const login = Joi.object({
     password: Joi.string().required(),
 });
 
-export default {register, login};
+export default { register, login };
