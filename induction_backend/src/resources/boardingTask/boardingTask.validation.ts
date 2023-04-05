@@ -1,4 +1,4 @@
-import Joi from "joi";
+import Joi from 'joi';
 
 const create = Joi.object({
     title: Joi.string().required(),
@@ -10,4 +10,4 @@ const update = Joi.object({
     body: Joi.string().required(),
 });
 
-export default {create,update};
+export default { create, update };

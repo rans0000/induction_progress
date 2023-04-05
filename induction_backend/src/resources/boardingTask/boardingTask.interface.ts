@@ -1,6 +1,6 @@
-import {Document} from 'mongoose';
+import { Document } from 'mongoose';
 
-export default interface BoardingTask extends Document{
-    title:string;
-    body:string;
+export default interface BoardingTask extends Document {
+    title: string;
+    body: string;
 }

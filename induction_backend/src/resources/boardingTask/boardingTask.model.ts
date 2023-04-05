@@ -1,19 +1,24 @@
-import { Schema, model } from "mongoose";
-import BoardingTask from "@/resources/boardingTask/boardingTask.interface";
+import BoardingTask from '@/resources/boardingTask/boardingTask.interface';
+import { Schema, model } from 'mongoose';
 
 const BoardingTaskSchema = new Schema(
     {
-        title:{
+        title: {
             type: String,
             required: true,
-            unique:true
+            unique: true,
         },
-        body:{
+        body: {
             type: String,
-            required: true
-        }
+            required: true,
+        },
+        status: {
+            type: Boolean,
+            required: true,
+            default: false,
+        },
     },
-    {timestamps: true}
+    { timestamps: true }
 );
 
 export default model<BoardingTask>('BoardingTask', BoardingTaskSchema);
