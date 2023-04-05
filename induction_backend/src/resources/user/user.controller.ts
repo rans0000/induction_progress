@@ -7,7 +7,7 @@ import UserService from "@/resources/user/user.service";
 import authenticated from "@/middleware/authenticated.middleware";
 
 class UserController implements Controller{
-    public path = '/users';
+    public path = '/user';
     public router = Router();
     private userService = new UserService();
 
