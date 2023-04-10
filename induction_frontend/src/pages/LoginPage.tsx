@@ -10,10 +10,7 @@ import { useCurrentUserApi, useLoginApi } from "../hooks/useLoginApi";
 const LoginPage: React.FunctionComponent = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { isLoading, data, isError, isFetching, refetch } = useLoginApi(
-    email,
-    password
-  );
+  const { isLoading, data, isError, refetch } = useLoginApi(email, password);
   const token = data?.token;
   const { data: userDetails } = useCurrentUserApi(token, !!data?.token);
 
