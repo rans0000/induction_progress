@@ -8,11 +8,14 @@
     "@mui/material": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "@types/react-redux": "^7.1.25",
     "react": "latest",
     "react-dom": "latest",
     "react-query": "^3.39.3",
+    "react-redux": "^8.0.5",
     "react-router-dom": "^6.10.0",
     "react-scripts": "latest",
+    "redux": "^4.2.1",
     "typescript": "latest"
   },
   "scripts": {
