@@ -5,14 +5,24 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
-import { useCurrentUserApi, useLoginApi } from "../hooks/useLoginApi";
+import { useLoginApi } from "../hooks/useLoginApi";
 
 const LoginPage: React.FunctionComponent = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { isLoading, data, isError, refetch } = useLoginApi(email, password);
-  const token = data?.token;
-  const { data: userDetails } = useCurrentUserApi(token, !!data?.token);
+
+  const onSuccess = () => {
+    console.log("success...");
+  };
+  const onError = () => {
+    console.log("error...");
+  };
+  const {
+    isLoading,
+    data: userDetails,
+    isError,
+    refetch,
+  } = useLoginApi(email, password, onSuccess, onError);
 
   const onSubmit = (event: React.FormEvent): void => {
     event.preventDefault();
@@ -47,7 +57,6 @@ const LoginPage: React.FunctionComponent = () => {
             Login
           </Button>
         </Stack>
-        <p>{data?.token}</p>
         <p>{userDetails?.name}</p>
       </Box>
     </Container>
