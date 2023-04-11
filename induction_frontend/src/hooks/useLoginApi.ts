@@ -49,7 +49,7 @@ const authenticateUser = async <T extends { queryKey: string[] }>({
 const useLoginApi = (
   email: string,
   password: string,
-  onSuccess: (data: object) => void,
+  onSuccess: (data: User) => void,
   onError: (error: object) => void
 ) => {
   return useQuery(["login", email, password], authenticateUser, {

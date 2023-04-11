@@ -6,15 +6,21 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
 import { UseQueryResult } from "react-query";
+import { useNavigate } from "react-router-dom";
 import { useLoginApi } from "../hooks/useLoginApi";
 import { User } from "../models/auth.model";
+import { Roles } from "../utils/enums";
 
 const LoginPage: React.FunctionComponent = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const navigate = useNavigate();
 
-  const onSuccess = (user: object) => {
+  const onSuccess = (user: User) => {
     console.log("success...", user);
+    if (user.role == Roles.ADMIN) {
+      navigate("/admin");
+    }
   };
   const onError = (error: object) => {
     console.log("error...");
