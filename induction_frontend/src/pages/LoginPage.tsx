@@ -5,24 +5,26 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
+import { UseQueryResult } from "react-query";
 import { useLoginApi } from "../hooks/useLoginApi";
+import { User } from "../models/auth.model";
 
 const LoginPage: React.FunctionComponent = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const onSuccess = () => {
-    console.log("success...");
+  const onSuccess = (user: object) => {
+    console.log("success...", user);
   };
-  const onError = () => {
+  const onError = (error: object) => {
     console.log("error...");
   };
   const {
     isLoading,
-    data: userDetails,
+    data: user,
     isError,
     refetch,
-  } = useLoginApi(email, password, onSuccess, onError);
+  } = useLoginApi(email, password, onSuccess, onError) as UseQueryResult<User>;
 
   const onSubmit = (event: React.FormEvent): void => {
     event.preventDefault();
@@ -53,11 +55,17 @@ const LoginPage: React.FunctionComponent = () => {
               setPassword(e.target.value);
             }}
           />
-          <Button variant="contained" size="large" type="submit">
+          <Button
+            variant="contained"
+            size="large"
+            type="submit"
+            disabled={isLoading}
+          >
             Login
           </Button>
         </Stack>
-        <p>{userDetails?.name}</p>
+        {isError && <Typography variant="body1">Login error</Typography>}
+        <p>{user?.name}</p>
       </Box>
     </Container>
   );

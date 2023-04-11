@@ -1,9 +1,14 @@
+import axios from "axios";
 import { useQuery } from "react-query";
-import axios, { AxiosResponse } from "axios";
+import { Token, User } from "../models/auth.model";
 
-/**@todo: typedef needed */
-
-const getLoginDetails = async (email: string, password: string) => {
+/**
+ * get login token
+ */
+const getLoginDetails = async (
+  email: string,
+  password: string
+): Promise<Token> => {
   return axios
     .post(`${process.env.REACT_APP_BASEURL}/users/login`, {
       email,
@@ -12,7 +17,10 @@ const getLoginDetails = async (email: string, password: string) => {
     .then((response) => response.data);
 };
 
-const getCurrentUser = async (token: string) => {
+/**
+ * get logged in user data
+ */
+const getCurrentUser = async (token: string): Promise<User> => {
   return axios
     .get(`${process.env.REACT_APP_BASEURL}/users/current-user`, {
       headers: {
@@ -22,19 +30,27 @@ const getCurrentUser = async (token: string) => {
     .then((response) => response.data);
 };
 
+/**
+ * login with email & password - get token and use it for user details
+ */
+
 const authenticateUser = async <T extends { queryKey: string[] }>({
   queryKey,
-}: T) => {
+}: T): Promise<User> => {
   const [t, email, password] = queryKey;
   const response = await getLoginDetails(email, password);
   return getCurrentUser(response.token);
 };
 
+/**
+ * service hooks
+ */
+
 const useLoginApi = (
   email: string,
   password: string,
-  onSuccess: () => void,
-  onError: () => void
+  onSuccess: (data: object) => void,
+  onError: (error: object) => void
 ) => {
   return useQuery(["login", email, password], authenticateUser, {
     enabled: false,
