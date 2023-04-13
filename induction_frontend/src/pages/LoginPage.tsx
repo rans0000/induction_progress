@@ -10,11 +10,17 @@ import { useNavigate } from "react-router-dom";
 import { useLoginApi } from "../hooks/useLoginApi";
 import { User } from "../models/user.models";
 import { Roles } from "../utils/enums";
+import { useAppDispatch, useAppSelector } from "../hooks/redux.hooks";
+import { getLoginToken } from "../state/app.slice";
+import { useGetLoginTokenMutation } from "../services/app.servive";
 
 const LoginPage: React.FunctionComponent = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
+  const token: string = useAppSelector((state) => state.app.token);
+  const [getLoginToken] = useGetLoginTokenMutation();
+  const dispatch = useAppDispatch();
 
   const onSuccess = (user: User) => {
     console.log("success...", user);
@@ -25,16 +31,18 @@ const LoginPage: React.FunctionComponent = () => {
   const onError = (error: object) => {
     console.log("error...");
   };
-  const {
-    isLoading,
-    data: user,
-    isError,
-    refetch,
-  } = useLoginApi(email, password, onSuccess, onError) as UseQueryResult<User>;
+  //   const {
+  //     isLoading,
+  //     data: user,
+  //     isError,
+  //     refetch,
+  //   } = useLoginApi(email, password, onSuccess, onError) as UseQueryResult<User>;
 
   const onSubmit = (event: React.FormEvent): void => {
     event.preventDefault();
-    refetch();
+    // refetch();
+    // dispatch();
+    getLoginToken({ email, password });
   };
 
   return (
@@ -65,13 +73,15 @@ const LoginPage: React.FunctionComponent = () => {
             variant="contained"
             size="large"
             type="submit"
-            disabled={isLoading}
+            // disabled={isLoading}
           >
             Login
           </Button>
         </Stack>
-        {isError && <Typography variant="body1">Login error</Typography>}
-        <p>{user?.name}</p>
+        {/* {isError && <Typography variant="body1">Login error</Typography>} */}
+        {/* <p>{user?.name}</p> */}
+        <p>token: {token}</p>
+        {/* <p>data: {JSON.stringify(data)}</p> */}
       </Box>
     </Container>
   );
