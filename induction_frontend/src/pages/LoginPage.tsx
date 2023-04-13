@@ -5,44 +5,35 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
-import { UseQueryResult } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { useLoginApi } from "../hooks/useLoginApi";
-import { User } from "../models/user.models";
+import { useAppDispatch } from "../hooks/redux.hooks";
+import {
+  useFetchLoggedInUserMutation,
+  useFetchLoginTokenMutation,
+} from "../services/auth.servive";
+import { saveLoggedInUser, saveLoginToken } from "../state/auth.slice";
 import { Roles } from "../utils/enums";
-import { useAppDispatch, useAppSelector } from "../hooks/redux.hooks";
-import { getLoginToken } from "../state/app.slice";
-import { useGetLoginTokenMutation } from "../services/app.servive";
 
 const LoginPage: React.FunctionComponent = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const navigate = useNavigate();
-  const token: string = useAppSelector((state) => state.app.token);
-  const [getLoginToken] = useGetLoginTokenMutation();
+  const [fetchLoginToken] = useFetchLoginTokenMutation();
+  const [fetchLoggedInUser] = useFetchLoggedInUserMutation();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const onSuccess = (user: User) => {
-    console.log("success...", user);
-    if (user.role == Roles.ADMIN) {
-      navigate("/admin");
-    }
-  };
-  const onError = (error: object) => {
-    console.log("error...");
-  };
-  //   const {
-  //     isLoading,
-  //     data: user,
-  //     isError,
-  //     refetch,
-  //   } = useLoginApi(email, password, onSuccess, onError) as UseQueryResult<User>;
-
-  const onSubmit = (event: React.FormEvent): void => {
+  const onSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
-    // refetch();
-    // dispatch();
-    getLoginToken({ email, password });
+    try {
+      const { token } = await fetchLoginToken({ email, password }).unwrap();
+      dispatch(saveLoginToken(token));
+      const user = await fetchLoggedInUser().unwrap();
+      dispatch(saveLoggedInUser(user));
+
+      if (user.role == Roles.ADMIN) {
+        navigate("/admin");
+      }
+    } catch (err) {}
   };
 
   return (
@@ -78,10 +69,6 @@ const LoginPage: React.FunctionComponent = () => {
             Login
           </Button>
         </Stack>
-        {/* {isError && <Typography variant="body1">Login error</Typography>} */}
-        {/* <p>{user?.name}</p> */}
-        <p>token: {token}</p>
-        {/* <p>data: {JSON.stringify(data)}</p> */}
       </Box>
     </Container>
   );
