@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import { UseQueryResult } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { useLoginApi } from "../hooks/useLoginApi";
-import { User } from "../models/auth.model";
+import { User } from "../models/user.models";
 import { Roles } from "../utils/enums";
 
 const LoginPage: React.FunctionComponent = () => {

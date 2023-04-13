@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-import { Token, User } from "../models/auth.model";
+import { Token } from "../models/auth.model";
+import { User } from "../models/user.models";
 
 /**
  * get login token
