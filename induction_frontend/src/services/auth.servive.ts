@@ -9,11 +9,13 @@ export const authApi = createApi({
     baseUrl: process.env.REACT_APP_BASEURL,
     prepareHeaders: prepareHeaders,
   }),
+
   endpoints: (builder) => ({
     fetchLoginToken: builder.mutation<Token, AuthUser>({
       query: (user) => ({ url: "/users/login", method: "POST", body: user }),
       transformResponse: (response: Token) => response,
     }),
+
     fetchLoggedInUser: builder.mutation<User, void>({
       query: () => ({ url: "/users/current-user", method: "GET" }),
       transformResponse: (response: User) => response,

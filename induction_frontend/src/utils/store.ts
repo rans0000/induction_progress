@@ -3,6 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 //reducers
 import { authApi } from "../services/auth.servive";
 import authReducer from "../state/auth.slice";
+import { localStorageListener } from "./localstorage.middleware";
 
 export const store = configureStore({
   reducer: {
@@ -10,7 +11,9 @@ export const store = configureStore({
     auth: authReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApi.middleware),
+    getDefaultMiddleware()
+      .prepend(localStorageListener.middleware)
+      .concat(authApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

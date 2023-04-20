@@ -1,7 +1,13 @@
 import { RootState } from "./store";
 
 export const prepareHeaders = (headers: Headers, api: any) => {
-  const token = (api.getState() as RootState).auth.token;
+  let token: string | null = "";
+  try {
+    token =
+      (api.getState() as RootState).auth.token || localStorage.getItem("token");
+  } catch (err) {
+    throw err;
+  }
   if (token) {
     headers.set("authorization", `Bearer ${token}`);
   }
