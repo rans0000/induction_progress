@@ -2,6 +2,7 @@ import Container from "@mui/material/Container";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import React from "react";
+import BoardingTasks from "../components/BoardingTasks";
 
 const AdminDashPage = () => {
   const [tabValue, setTabValue] = React.useState(0);
@@ -16,7 +17,11 @@ const AdminDashPage = () => {
         <Tab label="Tasks" />
         <Tab label="Users" />
       </Tabs>
-      {tabValue === 0 && <div>Tasks</div>}
+      {tabValue === 0 && (
+        <div>
+          <BoardingTasks />
+        </div>
+      )}
       {tabValue === 1 && <div>Users</div>}
     </Container>
   );
