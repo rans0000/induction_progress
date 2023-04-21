@@ -12,10 +12,10 @@ const BoardingTaskSchema = new Schema(
             type: String,
             required: true,
         },
-        status: {
+        enabled: {
             type: Boolean,
             required: true,
-            default: false,
+            default: true,
         },
     },
     { timestamps: true }
