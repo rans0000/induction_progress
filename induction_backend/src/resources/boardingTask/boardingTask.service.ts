@@ -29,6 +29,18 @@ class BoardingTaskService {
     }
 
     /**
+     * get one boarding task
+     */
+    public async getTask(_id: string): Promise<BoardingTask | Error> {
+        try {
+            const task = (await this.task.findById(_id)) as BoardingTask;
+            return task;
+        } catch (err) {
+            throw new Error('Unable to retrieve task');
+        }
+    }
+
+    /**
      * delete a boarding task
      */
     public async deleteTask(_id: string): Promise<any | Error> {

@@ -23,6 +23,7 @@ class BoardingTaskController implements Controller {
         );
 
         this.router.get(`${this.path}`, authenticated, this.getTasks);
+        this.router.get(`${this.path}/:taskId`, authenticated, this.getTask);
         this.router.delete(
             `${this.path}/:taskId`,
             authenticated,
@@ -52,6 +53,20 @@ class BoardingTaskController implements Controller {
         try {
             const tasks = await this.boardingTaskService.getTasks();
             res.status(200).json(tasks);
+        } catch (err: any) {
+            next(new HttpException(400, err.message));
+        }
+    };
+
+    private getTask = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response | void> => {
+        try {
+            const { taskId } = req.params;
+            const task = await this.boardingTaskService.getTask(taskId);
+            res.status(200).json(task);
         } catch (err: any) {
             next(new HttpException(400, err.message));
         }
