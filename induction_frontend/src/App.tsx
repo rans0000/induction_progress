@@ -15,12 +15,12 @@ export default function App() {
           <Route path="/admin">
             <Route index element={<AdminDashPage />}></Route>
             <Route
-              path="onboarding-tasks/ceate"
-              element={<BoardingEditPage />}
+              path="onboarding-tasks/create"
+              element={<BoardingEditPage action="Create" />}
             ></Route>
             <Route
               path="onboarding-tasks/:taskId"
-              element={<BoardingEditPage />}
+              element={<BoardingEditPage action="Edit" />}
             ></Route>
           </Route>
         </Routes>

@@ -21,8 +21,7 @@ const BoardingTasks = () => {
   const navigate = useNavigate();
 
   const onSelectTask = (taskId: string) => () => {
-    console.log("details page...");
-    // navigate(`/admin/onboarding-tasks/${taskId}`);
+    navigate(`/admin/onboarding-tasks/${taskId}`);
   };
 
   const onDeleteTask = (taskId: string) => async () => {

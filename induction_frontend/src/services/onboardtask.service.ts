@@ -8,11 +8,15 @@ export const onboardTaskApi = createApi({
     baseUrl: process.env.REACT_APP_BASEURL,
     prepareHeaders,
   }),
-  tagTypes: ["OnboardTask"],
+  tagTypes: ["OnboardTasks"],
   endpoints: (builder) => ({
     fetchOnboardTasks: builder.query<OnboardTask[], void>({
       query: () => ({ url: `boarding-tasks` }),
-      providesTags: ["OnboardTask"],
+      providesTags: ["OnboardTasks"],
+    }),
+    fetchOnboardTask: builder.query<OnboardTask, string>({
+      query: (taskId: string) => ({ url: `boarding-tasks/${taskId}` }),
+      providesTags: ["OnboardTasks"],
     }),
     createOnboardTask: builder.mutation<OnboardTask, OnboardTask>({
       query: (task: OnboardTask) => ({
@@ -20,20 +24,21 @@ export const onboardTaskApi = createApi({
         method: "POST",
         body: task,
       }),
-      invalidatesTags: ["OnboardTask"],
+      invalidatesTags: ["OnboardTasks"],
     }),
     deleteOnboardTask: builder.mutation<void, string>({
       query: (taskId) => ({
         url: `boarding-tasks/${taskId}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["OnboardTask"],
+      invalidatesTags: ["OnboardTasks"],
     }),
   }),
 });
 
 export const {
   useFetchOnboardTasksQuery,
+  useFetchOnboardTaskQuery,
   useCreateOnboardTaskMutation,
   useDeleteOnboardTaskMutation,
 } = onboardTaskApi;

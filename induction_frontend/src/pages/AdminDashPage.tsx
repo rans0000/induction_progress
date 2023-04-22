@@ -1,4 +1,5 @@
 import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import React from "react";
@@ -18,6 +19,7 @@ const AdminDashPage = () => {
         <Tab label="Tasks" />
         <Tab label="Users" />
       </Tabs>
+      <Box sx={{ p: 2 }} />
       {tabValue === 0 && <BoardingTasks />}
       {tabValue === 1 && <Users />}
     </Container>

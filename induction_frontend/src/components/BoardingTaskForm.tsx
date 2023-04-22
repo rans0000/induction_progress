@@ -3,21 +3,17 @@ import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import type { OnboardTask } from "../models/onboardtask.model";
-import { useCreateOnboardTaskMutation } from "../services/onboardtask.service";
 
-const initialTask = {
-  title: "",
-  body: "",
-  enabled: true,
+type BoardingTaskFormProps = {
+  action: "Create" | "Edit";
+  task: OnboardTask;
+  onSubmit: (task: OnboardTask) => void;
 };
 
-const BoardingTaskForm = () => {
-  const navigate = useNavigate();
-  const [createOnboardTask] = useCreateOnboardTaskMutation();
-  const [task, setTask] = useState<OnboardTask>(initialTask as OnboardTask);
+const BoardingTaskForm = (props: BoardingTaskFormProps) => {
+  const [task, setTask] = useState<OnboardTask>(props.task);
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTask((prev) => ({ ...prev, [event.target.name]: event.target.value }));
@@ -25,13 +21,16 @@ const BoardingTaskForm = () => {
 
   const onSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
-    await createOnboardTask(task);
-    navigate(-1);
+    props.onSubmit(task);
   };
+
+  useEffect(() => {
+    setTask(props.task);
+  }, [props.task]);
 
   return (
     <Container maxWidth="lg">
-      <Typography variant="h6">Forms</Typography>
+      <Typography variant="h6">{props.action} Task</Typography>
       <Stack
         component="form"
         noValidate
