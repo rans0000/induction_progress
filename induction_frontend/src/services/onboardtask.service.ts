@@ -8,11 +8,21 @@ export const onboardTaskApi = createApi({
     baseUrl: process.env.REACT_APP_BASEURL,
     prepareHeaders,
   }),
+  tagTypes: ["OnboardTask"],
   endpoints: (builder) => ({
     fetchOnboardTasks: builder.query<OnboardTask[], void>({
       query: () => ({ url: `boarding-tasks` }),
     }),
+    createOnboardTask: builder.mutation<OnboardTask, OnboardTask>({
+      query: (task: OnboardTask) => ({
+        url: "boarding-tasks",
+        method: "POST",
+        body: task,
+      }),
+      invalidatesTags: ["OnboardTask"],
+    }),
   }),
 });
 
-export const { useFetchOnboardTasksQuery } = onboardTaskApi;
+export const { useFetchOnboardTasksQuery, useCreateOnboardTaskMutation } =
+  onboardTaskApi;
