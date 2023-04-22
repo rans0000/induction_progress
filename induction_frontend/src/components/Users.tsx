@@ -1,6 +1,7 @@
 import Container from "@mui/material/Container";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import React from "react";
@@ -15,15 +16,17 @@ const Users = () => {
 
   return (
     <Container maxWidth="lg">
-      <Typography variant="h5">Onboarding Tasks</Typography>
-      <List>
+      <Typography variant="h5">Users</Typography>
+      <List dense component="nav">
         {users.length > 0 &&
           users.map((user) => (
             <ListItem key={user._id}>
-              <ListItemText
-                primary={user.name}
-                secondary={user.role}
-              ></ListItemText>
+              <ListItemButton>
+                <ListItemText
+                  primary={user.name}
+                  secondary={user.role}
+                ></ListItemText>
+              </ListItemButton>
             </ListItem>
           ))}
       </List>
