@@ -25,7 +25,6 @@ const BoardingTaskForm = () => {
 
   const onSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
-    console.log(task);
     await createOnboardTask(task);
     navigate(-1);
   };
