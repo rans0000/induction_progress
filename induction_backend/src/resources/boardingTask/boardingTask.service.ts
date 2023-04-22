@@ -11,7 +11,7 @@ class BoardingTaskService {
         try {
             const task = await this.task.create({ title, body });
             return task;
-        } catch (e) {
+        } catch (err) {
             throw new Error('Unable to create task');
         }
     }
@@ -23,8 +23,20 @@ class BoardingTaskService {
         try {
             const tasks = await this.task.find();
             return tasks;
-        } catch (e) {
+        } catch (err) {
             throw new Error('Unable to retrieve tasks');
+        }
+    }
+
+    /**
+     * delete a boarding task
+     */
+    public async deleteTask(_id: string): Promise<any | Error> {
+        try {
+            const task = await this.task.deleteOne({ _id });
+            return task;
+        } catch (err) {
+            throw new Error('Unable to delete task');
         }
     }
 }

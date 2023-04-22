@@ -23,6 +23,11 @@ class BoardingTaskController implements Controller {
         );
 
         this.router.get(`${this.path}`, authenticated, this.getTasks);
+        this.router.delete(
+            `${this.path}/:taskId`,
+            authenticated,
+            this.deleteTask
+        );
     }
 
     private create = async (
@@ -34,8 +39,8 @@ class BoardingTaskController implements Controller {
             const { title, body } = req.body;
             const task = await this.boardingTaskService.create(title, body);
             res.status(201).json({ task });
-        } catch (e: any) {
-            next(new HttpException(400, e.message));
+        } catch (err: any) {
+            next(new HttpException(400, err.message));
         }
     };
 
@@ -47,8 +52,22 @@ class BoardingTaskController implements Controller {
         try {
             const tasks = await this.boardingTaskService.getTasks();
             res.status(200).json(tasks);
-        } catch (e: any) {
-            next(new HttpException(400, e.message));
+        } catch (err: any) {
+            next(new HttpException(400, err.message));
+        }
+    };
+
+    private deleteTask = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response | void> => {
+        try {
+            const { taskId } = req.params;
+            const task = await this.boardingTaskService.deleteTask(taskId);
+            res.status(204).json(task);
+        } catch (err: any) {
+            next(new HttpException(400, err.message));
         }
     };
 }
