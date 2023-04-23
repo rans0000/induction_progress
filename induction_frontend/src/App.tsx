@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import AdminDashPage from "./pages/AdminDashPage";
 import BoardingEditPage from "./pages/BoardingEditPage";
 import LoginPage from "./pages/LoginPage";
+import MemberDashboardPage from "./pages/MemberDashboardPage";
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
       <Box sx={{ my: 4 }}>
         <Routes>
           <Route path="/" element={<LoginPage />} />
+          <Route path="dashboard" element={<MemberDashboardPage />}></Route>
           <Route path="/admin">
             <Route index element={<AdminDashPage />}></Route>
             <Route

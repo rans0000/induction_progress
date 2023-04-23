@@ -30,8 +30,11 @@ const LoginPage: React.FunctionComponent = () => {
       const user = await fetchLoggedInUser().unwrap();
       dispatch(saveLoggedInUser(user));
 
-      if (user.role == Roles.ADMIN) {
+      if (user.role === Roles.ADMIN) {
         navigate("/admin");
+      }
+      if (user.role === Roles.MEMBER) {
+        navigate("/dashboard");
       }
     } catch (err) {}
   };
