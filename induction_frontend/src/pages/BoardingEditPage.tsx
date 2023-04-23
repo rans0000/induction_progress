@@ -7,6 +7,7 @@ import { OnboardTask } from "../models/onboardtask.model";
 import {
   useCreateOnboardTaskMutation,
   useFetchOnboardTaskQuery,
+  useUpdateOnboardTaskMutation,
 } from "../services/onboardtask.service";
 
 type BoardingEditPageProps = {
@@ -28,10 +29,16 @@ const BoardingEditPage = (props: BoardingEditPageProps) => {
       skip: props.action === "Create",
     }
   );
+  const [updateOnboardTask] = useUpdateOnboardTaskMutation();
   const [createOnboardTask] = useCreateOnboardTaskMutation();
 
   const onCreateTask = async (taskObj: OnboardTask) => {
     await createOnboardTask(taskObj).unwrap();
+    navigate(-1);
+  };
+
+  const onUpdateTask = async (taskObj: OnboardTask) => {
+    await updateOnboardTask(taskObj).unwrap();
     navigate(-1);
   };
 
@@ -41,7 +48,7 @@ const BoardingEditPage = (props: BoardingEditPageProps) => {
       <BoardingTaskForm
         action={props.action}
         task={task}
-        onSubmit={onCreateTask}
+        onSubmit={props.action === "Create" ? onCreateTask : onUpdateTask}
       />
     </Container>
   );

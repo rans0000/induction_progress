@@ -26,6 +26,13 @@ export const onboardTaskApi = createApi({
       }),
       invalidatesTags: ["OnboardTasks"],
     }),
+    updateOnboardTask: builder.mutation<OnboardTask, OnboardTask>({
+      query: (task: OnboardTask) => {
+        const { _id: taskId, ...rest } = task;
+        return { url: `boarding-tasks/${taskId}`, method: "PATCH", body: rest };
+      },
+      invalidatesTags: ["OnboardTasks"],
+    }),
     deleteOnboardTask: builder.mutation<void, string>({
       query: (taskId) => ({
         url: `boarding-tasks/${taskId}`,
@@ -40,5 +47,6 @@ export const {
   useFetchOnboardTasksQuery,
   useFetchOnboardTaskQuery,
   useCreateOnboardTaskMutation,
+  useUpdateOnboardTaskMutation,
   useDeleteOnboardTaskMutation,
 } = onboardTaskApi;
