@@ -24,6 +24,12 @@ class BoardingTaskController implements Controller {
 
         this.router.get(`${this.path}`, authenticated, this.getTasks);
         this.router.get(`${this.path}/:taskId`, authenticated, this.getTask);
+        this.router.patch(
+            `${this.path}/:taskId`,
+            authenticated,
+            validationMiddleware(validate.update),
+            this.updateTask
+        );
         this.router.delete(
             `${this.path}/:taskId`,
             authenticated,
@@ -66,6 +72,26 @@ class BoardingTaskController implements Controller {
         try {
             const { taskId } = req.params;
             const task = await this.boardingTaskService.getTask(taskId);
+            res.status(200).json(task);
+        } catch (err: any) {
+            next(new HttpException(400, err.message));
+        }
+    };
+
+    private updateTask = async (
+        req: Request,
+        res: Response,
+        next: NextFunction
+    ): Promise<Response | void> => {
+        try {
+            const { taskId } = req.params;
+            const { _id, ...rest } = req.body;
+            console.log(taskId, rest);
+
+            const task = await this.boardingTaskService.updateTask(
+                taskId,
+                rest
+            );
             res.status(200).json(task);
         } catch (err: any) {
             next(new HttpException(400, err.message));

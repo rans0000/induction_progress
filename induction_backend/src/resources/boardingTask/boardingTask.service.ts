@@ -41,6 +41,25 @@ class BoardingTaskService {
     }
 
     /**
+     * update one boarding task
+     */
+    public async updateTask(
+        _id: string,
+        data: BoardingTask
+    ): Promise<BoardingTask | Error> {
+        try {
+            const task = (await this.task.findOneAndUpdate({ _id }, data, {
+                new: true,
+            })) as BoardingTask;
+            console.log(task.title);
+
+            return task;
+        } catch (err) {
+            throw new Error('Unable to update task');
+        }
+    }
+
+    /**
      * delete a boarding task
      */
     public async deleteTask(_id: string): Promise<any | Error> {
