@@ -15,7 +15,7 @@ import {
   useFetchOnboardTasksQuery,
 } from "../services/onboardtask.service";
 
-const BoardingTasks = () => {
+const OnboardTasks = () => {
   const { data: tasks = [], isError } = useFetchOnboardTasksQuery();
   const [deleteOnboardTask] = useDeleteOnboardTaskMutation();
   const navigate = useNavigate();
@@ -71,4 +71,4 @@ const BoardingTasks = () => {
   );
 };
 
-export default BoardingTasks;
+export default OnboardTasks;

@@ -2,7 +2,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import BoardingTaskForm from "../components/BoardingTaskForm";
+import OnboardTaskForm from "../components/OnboardTaskForm";
 import { OnboardTask } from "../models/onboardtask.model";
 import {
   useCreateOnboardTaskMutation,
@@ -10,7 +10,7 @@ import {
   useUpdateOnboardTaskMutation,
 } from "../services/onboardtask.service";
 
-type BoardingEditPageProps = {
+type OnboardEditPageProps = {
   action: "Create" | "Edit";
 };
 
@@ -20,7 +20,7 @@ const initialTask = {
   enabled: true,
 } as OnboardTask;
 
-const BoardingEditPage = (props: BoardingEditPageProps) => {
+const OnboardEditPage = (props: OnboardEditPageProps) => {
   const navigate = useNavigate();
   const { taskId = "" } = useParams();
   const { data: task = initialTask as OnboardTask } = useFetchOnboardTaskQuery(
@@ -45,7 +45,7 @@ const BoardingEditPage = (props: BoardingEditPageProps) => {
   return (
     <Container maxWidth="lg">
       <Typography variant="h5">Onboarding Details</Typography>
-      <BoardingTaskForm
+      <OnboardTaskForm
         action={props.action}
         task={task}
         onSubmit={props.action === "Create" ? onCreateTask : onUpdateTask}
@@ -54,4 +54,4 @@ const BoardingEditPage = (props: BoardingEditPageProps) => {
   );
 };
 
-export default BoardingEditPage;
+export default OnboardEditPage;

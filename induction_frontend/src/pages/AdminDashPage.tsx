@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import React from "react";
-import BoardingTasks from "../components/BoardingTasks";
+import OnboardTasks from "../components/OnboardTasks";
 import Users from "../components/Users";
 
 const AdminDashPage = () => {
@@ -20,7 +20,7 @@ const AdminDashPage = () => {
         <Tab label="Users" />
       </Tabs>
       <Box sx={{ p: 2 }} />
-      {tabValue === 0 && <BoardingTasks />}
+      {tabValue === 0 && <OnboardTasks />}
       {tabValue === 1 && <Users />}
     </Container>
   );

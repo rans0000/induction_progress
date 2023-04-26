@@ -3,7 +3,7 @@ import Container from "@mui/material/Container";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import AdminDashPage from "./pages/AdminDashPage";
-import BoardingEditPage from "./pages/BoardingEditPage";
+import OnboardEditPage from "./pages/OnboardEditPage";
 import LoginPage from "./pages/LoginPage";
 import MemberDashboardPage from "./pages/MemberDashboardPage";
 
@@ -18,11 +18,11 @@ export default function App() {
             <Route index element={<AdminDashPage />}></Route>
             <Route
               path="onboarding-tasks/create"
-              element={<BoardingEditPage action="Create" />}
+              element={<OnboardEditPage action="Create" />}
             ></Route>
             <Route
               path="onboarding-tasks/:taskId"
-              element={<BoardingEditPage action="Edit" />}
+              element={<OnboardEditPage action="Edit" />}
             ></Route>
           </Route>
         </Routes>

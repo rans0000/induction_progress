@@ -6,13 +6,13 @@ import Typography from "@mui/material/Typography";
 import React, { useEffect, useState } from "react";
 import type { OnboardTask } from "../models/onboardtask.model";
 
-type BoardingTaskFormProps = {
+type OnboardTaskFormProps = {
   action: "Create" | "Edit";
   task: OnboardTask;
   onSubmit: (task: OnboardTask) => void;
 };
 
-const BoardingTaskForm = (props: BoardingTaskFormProps) => {
+const OnboardTaskForm = (props: OnboardTaskFormProps) => {
   const [task, setTask] = useState<OnboardTask>(props.task);
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,4 +63,4 @@ const BoardingTaskForm = (props: BoardingTaskFormProps) => {
   );
 };
 
-export default BoardingTaskForm;
+export default OnboardTaskForm;
