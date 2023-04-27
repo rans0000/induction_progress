@@ -12,7 +12,10 @@ class BoardingActivityService {
         userId: string
     ): Promise<BoardingActivity | null | Error> {
         try {
-            const activity = await this.activity.findOne({ userId });
+            const activity = await this.activity.findOne(
+                { userId },
+                { createdAt: 0, updatedAt: 0 }
+            );
             return activity;
         } catch (err) {
             throw new Error('Unable to retrieve activity');

@@ -21,7 +21,10 @@ class BoardingTaskService {
      */
     public async getTasks(): Promise<BoardingTask[] | Error> {
         try {
-            const tasks = await this.task.find();
+            const tasks = await this.task.find(
+                {},
+                { createdAt: 0, updatedAt: 0 }
+            );
             return tasks;
         } catch (err) {
             throw new Error('Unable to retrieve tasks');
@@ -33,7 +36,10 @@ class BoardingTaskService {
      */
     public async getTask(_id: string): Promise<BoardingTask | Error> {
         try {
-            const task = (await this.task.findById(_id)) as BoardingTask;
+            const task = (await this.task.findById(_id, {
+                createdAt: 0,
+                updatedAt: 0,
+            })) as BoardingTask;
             return task;
         } catch (err) {
             throw new Error('Unable to retrieve task');
