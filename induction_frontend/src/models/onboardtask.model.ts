@@ -3,6 +3,4 @@ export type OnboardTask = {
   title: string;
   body: string;
   enabled: boolean;
-  createdAt: Date;
-  updatedAt: Date;
 };

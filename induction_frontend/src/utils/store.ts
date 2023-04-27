@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 
 //reducers
 import { authApi } from "../services/auth.servive";
+import { onboardActivityApi } from "../services/onboardactivity.service";
 import { onboardTaskApi } from "../services/onboardtask.service";
 import { userApi } from "../services/user.service";
 import authReducer from "../state/auth.slice";
@@ -12,6 +13,7 @@ export const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
     [onboardTaskApi.reducerPath]: onboardTaskApi.reducer,
+    [onboardActivityApi.reducerPath]: onboardActivityApi.reducer,
     auth: authReducer,
   },
   middleware: (getDefaultMiddleware) =>
@@ -20,7 +22,8 @@ export const store = configureStore({
       .concat(
         authApi.middleware,
         userApi.middleware,
-        onboardTaskApi.middleware
+        onboardTaskApi.middleware,
+        onboardActivityApi.middleware
       ),
 });
 
