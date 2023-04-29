@@ -5,6 +5,20 @@ class BoardingActivityService {
     private activity = BoardingActivityModel;
 
     /**
+     * create activity
+     */
+    public async createActivity(
+        data: BoardingActivity
+    ): Promise<BoardingActivity | null | Error> {
+        try {
+            const activity = await this.activity.create(data);
+            return activity;
+        } catch (err) {
+            throw new Error('Unable to create activity');
+        }
+    }
+
+    /**
      * get boarding activity of a user
      */
     /**@todo: remove null from return types */
@@ -19,6 +33,27 @@ class BoardingActivityService {
             return activity;
         } catch (err) {
             throw new Error('Unable to retrieve activity');
+        }
+    }
+
+    /**
+     * update task
+     */
+    public async updateActivity(
+        data: BoardingActivity
+    ): Promise<BoardingActivity | Error> {
+        try {
+            const { userId } = data;
+            const activity = (await this.activity.findOneAndUpdate(
+                { userId },
+                data,
+                {
+                    new: true,
+                }
+            )) as BoardingActivity;
+            return activity;
+        } catch (err) {
+            throw new Error('Unable to update activity');
         }
     }
 }

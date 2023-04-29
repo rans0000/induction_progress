@@ -3,7 +3,7 @@ import BoardingActivity from './boardingActivity.interface';
 
 const taskSchema = new Schema({
     taskId: { type: String, required: true },
-    status: { type: Boolean, required: true },
+    isCompleted: { type: Boolean, default: false },
 });
 
 const BoardingActivitySchema = new Schema(
@@ -17,6 +17,7 @@ const BoardingActivitySchema = new Schema(
             type: Boolean,
             default: false,
         },
+        status: { type: String, required: true },
         tasks: [taskSchema],
     },
     { timestamps: true }
