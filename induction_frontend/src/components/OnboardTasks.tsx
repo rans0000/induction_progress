@@ -52,13 +52,13 @@ const OnboardTasks = () => {
                 <IconButton
                   edge="end"
                   aria-label="delete"
-                  onClick={onDeleteTask(task._id)}
+                  onClick={onDeleteTask(task._id!)}
                 >
                   <DeleteIcon />
                 </IconButton>
               }
             >
-              <ListItemButton onClick={onSelectTask(task._id)}>
+              <ListItemButton onClick={onSelectTask(task._id!)}>
                 <ListItemText
                   primary={task.title}
                   secondary={task.body}

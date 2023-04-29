@@ -1,5 +1,5 @@
 export type OnboardTask = {
-  _id: string;
+  _id?: string;
   title: string;
   body: string;
   enabled: boolean;
